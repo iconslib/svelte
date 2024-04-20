@@ -1,5 +1,0 @@
-<script>
-	const { ...all } = $props();
-</script>
-
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-book" viewBox="0 0 24 24" aria-hidden="true" {...all}><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2"/></svg>

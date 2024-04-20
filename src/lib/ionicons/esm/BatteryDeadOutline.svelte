@@ -1,5 +1,0 @@
-<script>
-	const { ...all } = $props();
-</script>
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true" {...all}><rect width="400" height="224" x="31" y="144" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10" stroke-width="32" rx="45.7" ry="45.7"/><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M479 218.67v74.66"/></svg>
