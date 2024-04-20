@@ -3,14 +3,14 @@ import { optimize } from 'svgo';
 import cliProgress from 'cli-progress';
 
 import {
-	clearDirectory,
-	ensureDirectory,
-	collectFiles,
-	dashCaseToClassCase,
-	modifySvelteSvgComponent,
-	renderStub,
-	downloadPackage,
-	unpackPackage
+  clearDirectory,
+  ensureDirectory,
+  collectFiles,
+  dashCaseToClassCase,
+  modifySvelteSvgComponent,
+  renderStub,
+  downloadPackage,
+  unpackPackage
 } from '../helpers.mjs';
 
 const PKG_SLUG = 'ionicons';
@@ -18,86 +18,86 @@ const PKG_NAME = 'Ionicons';
 const PKG_URL = 'https://github.com/ionic-team/ionicons/archive/refs/heads/main.zip';
 
 export default async function main(options = { verbose: false, progress: false }) {
-	const outputPath = `./src/lib/${PKG_SLUG}`;
-	const sourcePath = `./packages/${PKG_SLUG}/source`;
-	const cliProgressBar = new cliProgress.SingleBar(
-		{
-			format: `---> Processing | ${PKG_NAME} | {percentage}% | {bar} || {value}/{total} Icons`
-		},
-		cliProgress.Presets.shades_classic
-	);
+  const outputPath = `./src/lib/${PKG_SLUG}`;
+  const sourcePath = `./packages/${PKG_SLUG}/source`;
+  const cliProgressBar = new cliProgress.SingleBar(
+    {
+      format: `---> Processing | ${PKG_NAME} | {percentage}% | {bar} || {value}/{total} Icons`
+    },
+    cliProgress.Presets.shades_classic
+  );
 
-	await clearDirectory({ path: outputPath });
-	await ensureDirectory({ path: outputPath });
+  await clearDirectory({ path: outputPath });
+  await ensureDirectory({ path: outputPath });
 
-	await clearDirectory({ path: outputPath });
-	await ensureDirectory({ path: outputPath });
+  await clearDirectory({ path: outputPath });
+  await ensureDirectory({ path: outputPath });
 
-	await downloadPackage({ url: PKG_URL, path: `${sourcePath}/${PKG_SLUG}-downloaded.zip` });
-	await unpackPackage({
-		archivePath: `${sourcePath}/${PKG_SLUG}-downloaded.zip`,
-		path: sourcePath
-	});
+  await downloadPackage({ url: PKG_URL, path: `${sourcePath}/${PKG_SLUG}-downloaded.zip` });
+  await unpackPackage({
+    archivePath: `${sourcePath}/${PKG_SLUG}-downloaded.zip`,
+    path: sourcePath
+  });
 
-	const files = await collectFiles({ path: `${sourcePath}/ionicons-main/src/svg` });
+  const files = await collectFiles({ path: `${sourcePath}/ionicons-main/src/svg` });
 
-	if (options.progress) {
-		cliProgressBar.start(files.length, 0);
-	}
+  if (options.progress) {
+    cliProgressBar.start(files.length, 0);
+  }
 
-	for (const file of files) {
-		const fileContent = await fs.readFile(file.path);
-		const optimizedFileContent = optimize(fileContent, {
-			plugins: [
-				'preset-default',
-				'removeDimensions',
-				'sortAttrs',
-				'cleanupListOfValues',
-				{
-					name: 'removeAttrs',
-					params: {
-						attrs: ['fill']
-					}
-				},
-				{
-					name: 'addAttributesToSVGElement',
-					params: {
-						attributes: [
-							{
-								'aria-hidden': 'true'
-							}
-						]
-					}
-				}
-			]
-		});
+  for (const file of files) {
+    const fileContent = await fs.readFile(file.path);
+    const optimizedFileContent = optimize(fileContent, {
+      plugins: [
+        'preset-default',
+        'removeDimensions',
+        'sortAttrs',
+        'cleanupListOfValues',
+        {
+          name: 'removeAttrs',
+          params: {
+            attrs: ['fill']
+          }
+        },
+        {
+          name: 'addAttributesToSVGElement',
+          params: {
+            attributes: [
+              {
+                'aria-hidden': 'true'
+              }
+            ]
+          }
+        }
+      ]
+    });
 
-		const newFileName = dashCaseToClassCase(file.name);
-		const newPath = `${outputPath}/esm/${newFileName}.svelte`;
-		await ensureDirectory({ path: newPath });
+    const newFileName = dashCaseToClassCase(file.name);
+    const newPath = `${outputPath}/esm/${newFileName}.svelte`;
+    await ensureDirectory({ path: newPath });
 
-		const componentContent = await renderStub({
-			stub: 'component',
-			content: optimizedFileContent.data
-		});
-		const modifiedComponentContent = modifySvelteSvgComponent({ content: componentContent });
+    const componentContent = await renderStub({
+      stub: 'component',
+      content: optimizedFileContent.data
+    });
+    const modifiedComponentContent = modifySvelteSvgComponent({ content: componentContent });
 
-		await fs.writeFile(newPath, modifiedComponentContent);
+    await fs.writeFile(newPath, modifiedComponentContent);
 
-		await fs.appendFile(
-			`${outputPath}/index.js`,
-			`export { default as ${newFileName} } from './esm/${newFileName}.svelte'; \n`
-		);
+    await fs.appendFile(
+      `${outputPath}/index.js`,
+      `export { default as ${newFileName} } from './esm/${newFileName}.svelte'; \n`
+    );
 
-		if (options.progress) {
-			cliProgressBar.increment();
-		}
+    if (options.progress) {
+      cliProgressBar.increment();
+    }
 
-		if (options.verbose) {
-			console.log(`---> Processed ${newFileName} component`);
-		}
-	}
+    if (options.verbose) {
+      console.log(`---> Processed ${newFileName} component`);
+    }
+  }
 
-	console.log(`---> Finished processing of '${PKG_NAME}' package`);
-	cliProgressBar.stop();
+  console.log(`---> Finished processing of '${PKG_NAME}' package`);
+  cliProgressBar.stop();
 }
