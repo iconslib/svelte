@@ -1,0 +1,5 @@
+<script>
+	const { ...all } = $props();
+</script>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true" {...all}><path d="M480 265H232v179l248 36zm-264 0H32v150l184 26.7zM480 32 232 67.4V249h248zM216 69.7 32 96v153h184z"/></svg>
