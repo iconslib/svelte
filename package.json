@@ -56,6 +56,7 @@
 		"cli-progress": "^3.12.0",
 		"commander": "^12.0.0",
 		"decompress": "^4.2.1",
+		"edge.js": "^6.0.2",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0-next.4",
@@ -75,9 +76,6 @@
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"type": "module",
-	"dependencies": {
-		"edge.js": "^6.0.2"
-	},
 	"bin": {
 		"cli": "./bin/run.js"
 	},
