@@ -36,7 +36,6 @@ program
 			}
 
 			await packages[name](options);
-			console.log(`---> Finished processing of for '${name}' package`);
 		}
 	});
 

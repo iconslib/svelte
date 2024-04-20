@@ -99,5 +99,6 @@ export default async function main(options = { verbose: false, progress: false }
 		}
 	}
 
+	console.log(`---> Finished processing of '${PKG_NAME}' package`);
 	cliProgressBar.stop();
 }
