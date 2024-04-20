@@ -2,14 +2,16 @@
 
 import { Command } from 'commander';
 
-import prepareHeroicons from './packages/heroicons.mjs';
-import prepareIonicons from './packages/ionicons.mjs';
-import prepareFeather from './packages/feather.mjs';
+import prepareHeroicons from '../packages/heroicons/prepare.mjs';
+import prepareIonicons from '../packages/ionicons/prepare.mjs';
+import prepareFeather from '../packages/feather/prepare.mjs';
+import prepareRadix from '../packages/radix/prepare.mjs';
 
 const packages = {
 	heroicons: prepareHeroicons,
 	ionicons: prepareIonicons,
-	feather: prepareFeather
+	feather: prepareFeather,
+	radix: prepareRadix
 };
 
 const program = new Command();
@@ -34,7 +36,7 @@ program
 			}
 
 			await packages[name](options);
-			console.log(`Finished processing of a '${name}' package`);
+			console.log(`---> Finished processing of for '${name}' package`);
 		}
 	});
 

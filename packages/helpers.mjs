@@ -1,6 +1,9 @@
 import path from 'node:path';
-import fs from 'node:fs/promises';
+import fs from 'node:fs';
+import fsp from 'node:fs/promises';
+import { Readable } from 'node:stream';
 import { Edge } from 'edge.js';
+import decompress from 'decompress';
 
 const edge = Edge.create();
 edge.mount(new URL('../stubs', import.meta.url));
@@ -11,15 +14,40 @@ export function dashCaseToClassCase(input) {
 	return inputToClassCase;
 }
 
+export async function downloadPackage({ url, path: pathToSave }) {
+	console.log('---> Downloading package from:', url);
+
+	const response = await fetch(url);
+
+	if (!response.ok || !response.body) {
+		throw new Error('Cannot download package');
+	}
+
+	console.log('---> Writing downloaded package to:', pathToSave);
+
+	await new Promise((resolve, reject) => {
+		const writer = fs.createWriteStream(pathToSave);
+		Readable.fromWeb(response.body).pipe(writer);
+
+		writer.on('error', (error) => reject(error));
+		writer.on('finish', () => resolve(true));
+	});
+}
+
+export async function unpackPackage({ archivePath, path: pathToUnpack }) {
+	console.log('---> Decompressing downloaded package:', archivePath);
+	await decompress(archivePath, pathToUnpack);
+}
+
 export async function collectFiles({ path: pathToProcess }) {
 	let svgFiles = [];
 
 	async function traverse(pathToProcess) {
-		const files = await fs.readdir(pathToProcess);
+		const files = await fsp.readdir(pathToProcess);
 
 		for (const file of files) {
 			const filePath = path.join(pathToProcess, file);
-			const fileStat = await fs.stat(filePath);
+			const fileStat = await fsp.stat(filePath);
 
 			if (fileStat.isDirectory()) {
 				await traverse(filePath);
@@ -37,26 +65,26 @@ export async function collectFiles({ path: pathToProcess }) {
 	return svgFiles;
 }
 
-export async function verifyDirectoriesExist({ path: pathToProcess }) {
+export async function ensureDirectory({ path: pathToProcess }) {
 	const pathToProcessDir = pathToProcess.replace(/\/[^/]+\.\w+$/, '');
 
 	try {
-		await fs.stat(pathToProcessDir);
+		await fsp.stat(pathToProcessDir);
 	} catch (error) {
 		if (error.code === 'ENOENT') {
-			await fs.mkdir(pathToProcessDir, { recursive: true }); // Create the directory recursively
+			await fsp.mkdir(pathToProcessDir, { recursive: true }); // Create the directory recursively
 		}
 	}
 }
 
-export async function clear({ path: pathToClear, verbose = false }) {
+export async function clearDirectory({ path: pathToClear }) {
 	try {
-		await fs.access(pathToClear);
-		await fs.rm(pathToClear, { recursive: true, force: true });
-		verbose && console.log('---> Cleared path:', pathToClear);
+		await fsp.access(pathToClear);
+		await fsp.rm(pathToClear, { recursive: true, force: true });
+		console.log('---> Cleared path:', pathToClear);
 	} catch (error) {
 		if (error.syscall === 'access' && error.code === 'ENOENT') {
-			verbose && console.log('---> Path is clear:', pathToClear);
+			console.log('---> Path is clear:', pathToClear);
 		} else {
 			throw new Error(error);
 		}

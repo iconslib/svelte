@@ -3,26 +3,43 @@ import { optimize } from 'svgo';
 import cliProgress from 'cli-progress';
 
 import {
-	clear,
+	clearDirectory,
+	ensureDirectory,
 	collectFiles,
 	dashCaseToClassCase,
 	modifySvelteSvgComponent,
 	renderStub,
-	verifyDirectoriesExist
+	downloadPackage,
+	unpackPackage
 } from '../helpers.mjs';
 
+const PKG_SLUG = 'ionicons';
+const PKG_NAME = 'Ionicons';
+const PKG_URL = 'https://github.com/ionic-team/ionicons/archive/refs/heads/main.zip';
+
 export default async function main(options = { verbose: false, progress: false }) {
-	const outputPath = `./src/lib/ionicons`;
+	const outputPath = `./src/lib/${PKG_SLUG}`;
+	const sourcePath = `./packages/${PKG_SLUG}/source`;
 	const cliProgressBar = new cliProgress.SingleBar(
 		{
-			format: 'Ionicons | {percentage}% | {bar} || {value}/{total} Icons'
+			format: `---> Processing | ${PKG_NAME} | {percentage}% | {bar} || {value}/{total} Icons`
 		},
 		cliProgress.Presets.shades_classic
 	);
 
-	await clear({ path: outputPath });
+	await clearDirectory({ path: outputPath });
+	await ensureDirectory({ path: outputPath });
 
-	const files = await collectFiles({ path: 'node_modules/ionicons/dist/svg' });
+	await clearDirectory({ path: outputPath });
+	await ensureDirectory({ path: outputPath });
+
+	await downloadPackage({ url: PKG_URL, path: `${sourcePath}/${PKG_SLUG}-downloaded.zip` });
+	await unpackPackage({
+		archivePath: `${sourcePath}/${PKG_SLUG}-downloaded.zip`,
+		path: sourcePath
+	});
+
+	const files = await collectFiles({ path: `${sourcePath}/ionicons-main/src/svg` });
 
 	if (options.progress) {
 		cliProgressBar.start(files.length, 0);
@@ -57,7 +74,7 @@ export default async function main(options = { verbose: false, progress: false }
 
 		const newFileName = dashCaseToClassCase(file.name);
 		const newPath = `${outputPath}/esm/${newFileName}.svelte`;
-		await verifyDirectoriesExist({ path: newPath });
+		await ensureDirectory({ path: newPath });
 
 		const componentContent = await renderStub({
 			stub: 'component',
