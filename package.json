@@ -1,49 +1,26 @@
 {
 	"name": "@iconslib/svelte",
-	"version": "0.0.5",
+	"version": "0.0.8",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
 		"preview": "vite preview",
-		"package": "npm run prepare:all && svelte-kit sync && svelte-package && publint",
+		"package": "npm run prepare -a && svelte-kit sync && svelte-package && publint",
 		"prepublishOnly": "npm run package",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
-		"prepare:all": "node ./bin/prepare.mjs -a -p",
-		"prepare:heroicons": "node ./bin/prepare.mjs -p heroicons",
-		"prepare:ionicons": "node ./bin/prepare.mjs -p ionicons",
-		"prepare:feather": "node ./bin/prepare.mjs -p feather"
+		"prepare": "node ./bin/prepare.mjs -p"
 	},
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
 			"svelte": "./dist/index.js"
 		},
-		"./heroicons/solid": {
-			"types": "./dist/heroicons/24/solid/index.d.ts",
-			"svelte": "./dist/heroicons/24/solid/index.js"
-		},
-		"./heroicons/outline": {
-			"types": "./dist/heroicons/24/outline/index.d.ts",
-			"svelte": "./dist/heroicons/24/outline/index.js"
-		},
-		"./heroicons/16/solid": {
-			"types": "./dist/heroicons/16/solid/index.d.ts",
-			"svelte": "./dist/heroicons/16/solid/index.js"
-		},
-		"./heroicons/20/solid": {
-			"types": "./dist/heroicons/20/solid/index.d.ts",
-			"svelte": "./dist/heroicons/20/solid/index.js"
-		},
-		"./heroicons/24/solid": {
-			"types": "./dist/heroicons/24/solid/index.d.ts",
-			"svelte": "./dist/heroicons/24/solid/index.js"
-		},
-		"./heroicons/24/outline": {
-			"types": "./dist/heroicons/24/outline/index.d.ts",
-			"svelte": "./dist/heroicons/24/outline/index.js"
+		"./heroicons": {
+			"types": "./dist/heroicons/index.d.ts",
+			"svelte": "./dist/heroicons/index.js"
 		},
 		"./ionicons": {
 			"types": "./dist/ionicons/index.d.ts",
@@ -52,6 +29,10 @@
 		"./feather": {
 			"types": "./dist/feather/index.d.ts",
 			"svelte": "./dist/feather/index.js"
+		},
+		"./radix": {
+			"types": "./dist/radix/index.d.ts",
+			"svelte": "./dist/radix/index.js"
 		}
 	},
 	"files": [
@@ -63,6 +44,7 @@
 		"svelte": "^4.0.0"
 	},
 	"devDependencies": {
+		"@radix-ui/react-icons": "^1.3.0",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/adapter-node": "^5.0.1",
 		"@sveltejs/kit": "^2.0.0",
@@ -73,6 +55,7 @@
 		"@typescript-eslint/parser": "^7.0.0",
 		"cli-progress": "^3.12.0",
 		"commander": "^12.0.0",
+		"decompress": "^4.2.1",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0-next.4",
