@@ -2,6 +2,8 @@
 
 Open source icons for your next Svelte project.
 
+Visit [iconslib.com](https://iconslib.com) for more info.
+
 ## Installing
 
 To install the package please run:
