@@ -18,7 +18,7 @@ const PKG_URL = 'https://github.com/tailwindlabs/heroicons/archive/refs/heads/ma
 
 export default async function main(options = { verbose: false, progress: false }) {
   const outputPath = `./src/lib/${PKG_SLUG}`;
-  const sourcePath = `./packages/${PKG_SLUG}/source`;
+  const sourcePath = `./packs/${PKG_SLUG}/source`;
   const cliProgressBar = new cliProgress.SingleBar(
     {
       format: `---> Processing | ${PKG_NAME} | {percentage}% | {bar} || {value}/{total} Icons`
@@ -75,6 +75,6 @@ export default async function main(options = { verbose: false, progress: false }
     }
   }
 
-  console.log(`---> Finished processing of '${PKG_NAME}' package`);
+  console.log(`---> Finished processing of '${PKG_NAME}' pack`);
   cliProgressBar.stop();
 }

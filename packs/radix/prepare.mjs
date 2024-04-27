@@ -19,7 +19,7 @@ const PKG_URL = 'https://github.com/radix-ui/icons/raw/master/radix-icons.zip';
 
 export default async function main(options = { verbose: false, progress: false }) {
   const outputPath = `./src/lib/${PKG_SLUG}`;
-  const sourcePath = `./packages/${PKG_SLUG}/source`;
+  const sourcePath = `./packs/${PKG_SLUG}/source`;
   const cliProgressBar = new cliProgress.SingleBar(
     {
       format: `---> Processing | ${PKG_NAME} | {percentage}% | {bar} || {value}/{total} Icons`
@@ -30,8 +30,8 @@ export default async function main(options = { verbose: false, progress: false }
   await clearDirectory({ path: outputPath });
   await ensureDirectory({ path: outputPath });
 
-  await clearDirectory({ path: outputPath });
-  await ensureDirectory({ path: outputPath });
+  await clearDirectory({ path: sourcePath });
+  await ensureDirectory({ path: sourcePath });
 
   await downloadPackage({ url: PKG_URL, path: `${sourcePath}/${PKG_SLUG}-downloaded.zip` });
   await unpackPackage({
@@ -98,6 +98,6 @@ export default async function main(options = { verbose: false, progress: false }
     }
   }
 
-  console.log(`---> Finished processing of '${PKG_NAME}' package`);
+  console.log(`---> Finished processing of '${PKG_NAME}' pack`);
   cliProgressBar.stop();
 }

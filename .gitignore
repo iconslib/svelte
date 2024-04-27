@@ -4,8 +4,8 @@ node_modules
 /dist
 /src/lib/*
 !/src/lib/index.ts
-/packages/*/source
-!/packages/*/prepare.mjs
+/packs/*/source
+!/packs/*/prepare.mjs
 /.svelte-kit
 /package
 .env

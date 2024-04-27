@@ -2,40 +2,42 @@
 
 import { Command } from 'commander';
 
-import prepareHeroicons from '../packages/heroicons/prepare.mjs';
-import prepareIonicons from '../packages/ionicons/prepare.mjs';
-import prepareFeather from '../packages/feather/prepare.mjs';
-import prepareRadix from '../packages/radix/prepare.mjs';
+import prepareHeroicons from '../packs/heroicons/prepare.mjs';
+import prepareIonicons from '../packs/ionicons/prepare.mjs';
+import prepareFeather from '../packs/feather/prepare.mjs';
+import prepareRadix from '../packs/radix/prepare.mjs';
+import prepareOcticons from '../packs/octicons/prepare.mjs';
 
-const packages = {
+const packs = {
   heroicons: prepareHeroicons,
   ionicons: prepareIonicons,
   feather: prepareFeather,
-  radix: prepareRadix
+  radix: prepareRadix,
+  octicons: prepareOcticons
 };
 
 const program = new Command();
 
 program
-  .description('Prepare SVG icons from a package to be compatible with Svelte')
-  .argument('[name]', 'A package name to process')
-  .option('-a, --all', 'if should process all packages')
+  .description('Prepare SVG icons from a pack to be compatible with Svelte')
+  .argument('[name]', 'A pack name to process')
+  .option('-a, --all', 'if should process all packs')
   .option('-p, --progress', 'if should show progress')
   .option('-v, --verbose', 'if should be verbose')
   .action(async (name, options) => {
     if (options.all) {
-      await Promise.all([...Object.values(packages).map((fn) => fn(options))]);
+      await Promise.all([...Object.values(packs).map((fn) => fn(options))]);
       return;
     }
 
     if (name) {
-      if (!packages[name]) {
+      if (!packs[name]) {
         throw new Error(
-          `No package with that name. Available packages are: ${Object.keys(packages).join(', ')}`
+          `No pack with that name. Available packs are: ${Object.keys(packs).join(', ')}`
         );
       }
 
-      await packages[name](options);
+      await packs[name](options);
     }
   });
 

@@ -15,15 +15,15 @@ export function dashCaseToClassCase(input) {
 }
 
 export async function downloadPackage({ url, path: pathToSave }) {
-  console.log('---> Downloading package from:', url);
+  console.log('---> Downloading pack from:', url);
 
   const response = await fetch(url);
 
   if (!response.ok || !response.body) {
-    throw new Error('Cannot download package');
+    throw new Error('Cannot download pack');
   }
 
-  console.log('---> Writing downloaded package to:', pathToSave);
+  console.log('---> Writing downloaded pack to:', pathToSave);
 
   await new Promise((resolve, reject) => {
     const writer = fs.createWriteStream(pathToSave);
@@ -35,7 +35,7 @@ export async function downloadPackage({ url, path: pathToSave }) {
 }
 
 export async function unpackPackage({ archivePath, path: pathToUnpack }) {
-  console.log('---> Decompressing downloaded package:', archivePath);
+  console.log('---> Decompressing downloaded pack:', archivePath);
   await decompress(archivePath, pathToUnpack);
 }
 
