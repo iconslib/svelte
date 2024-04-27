@@ -52,13 +52,38 @@ export default async function main(options = { verbose: false, progress: false }
         'preset-default',
         'removeDimensions',
         'sortAttrs',
+        'convertStyleToAttrs',
         'cleanupListOfValues',
         {
-          name: 'removeAttrs',
-          params: {
-            attrs: ['fill']
+          name: 'updateAttrs',
+          fn: () => {
+            return {
+              element: {
+                enter: (node) => {
+                  if (node.attributes.stroke === 'none') {
+                    node.attributes.style = `${node.attributes.style ?? ''}stroke:none!important;`;
+                    delete node.attributes['stroke'];
+                  }
+
+                  if (node.attributes.stroke === '#000') {
+                    delete node.attributes['stroke'];
+                  }
+
+                  if (node.attributes.fill === 'none') {
+                    node.attributes.style = `${node.attributes.style ?? ''}fill:none!important;`;
+                    delete node.attributes['fill'];
+                  }
+                }
+              }
+            };
           }
         },
+        // {
+        //   name: 'removeAttrs',
+        //   params: {
+        //     attrs: ['style']
+        //   }
+        // },
         {
           name: 'addAttributesToSVGElement',
           params: {
