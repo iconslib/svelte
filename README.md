@@ -1,58 +1,44 @@
-# create-svelte
+# @iconslib/svelte
 
-Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+Open source icons for your next Svelte project.
 
-Read more about creating a library [in the docs](https://kit.svelte.dev/docs/packaging).
+## Installing
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
+To install the package please run:
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+npm install @iconslib/svelte
+# or for yarn
+yarn add @iconslib/svelte
+# or for pnpm
+pnpm install @iconslib/svelte
 ```
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Once you've forked this project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), run `npm run prepare` to download and prepare icon packs.
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+Everything inside `src/lib` is part of the library.
 
 ## Building
 
-To build your library:
+To build this library run:
 
 ```bash
 npm run package
 ```
 
-To create a production version of your showcase app:
+This will download and prepare all the icon packs.
 
-```bash
-npm run build
-```
+## How to add a new pack
 
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
-
-## Publishing
-
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```bash
-npm publish
-```
+1. Add a corresponding folder into `packs` folder
+2. Add a `prepare.mjs` file into the newly created directory
+3. Use other `prepare.mjs` files as an inspiration to create the script for the pack you are going to add
+4. Add new script to `scripts/prepare.mjs` file
+5. Run your script via `npm run prepare <new-pack-slug>`
+6. Add new exports to `package.json` (check other exports for an example)
+7. Test if icons import and display normally
+8. Build
+9. Commit
+10. PR
