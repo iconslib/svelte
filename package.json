@@ -1,6 +1,6 @@
 {
   "name": "@iconslib/svelte",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "keywords": [
     "svelte",
     "icons",
@@ -10,6 +10,15 @@
     "feather",
     "radix"
   ],
+  "homepage": "https://iconslib.com/frameworks/svelte",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iconslib/svelte.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iconslib/svelte/issues"
+  },
+  "author": "Chirill Ceban <cc@bitkidd.dev> (https://bitkidd.dev)",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && npm run package",
