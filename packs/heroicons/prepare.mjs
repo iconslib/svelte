@@ -7,7 +7,7 @@ import {
   collectFiles,
   dashCaseToClassCase,
   downloadPackage,
-  modifySvelteSvgComponent,
+  modifySvelteSvgComponentV4,
   renderStub,
   unpackPackage
 } from '../helpers.mjs';
@@ -56,8 +56,8 @@ export default async function main(options = { verbose: false, progress: false }
     const newPath = `${outputPath}/esm/${newFileName}.svelte`;
     await ensureDirectory({ path: newPath });
 
-    const componentContent = await renderStub({ stub: 'component', content: fileContent });
-    const modifiedComponentContent = modifySvelteSvgComponent({ content: componentContent });
+    const componentContent = await renderStub({ stub: 'component-v4', content: fileContent });
+    const modifiedComponentContent = modifySvelteSvgComponentV4({ content: componentContent });
 
     await fsp.writeFile(newPath, modifiedComponentContent);
 

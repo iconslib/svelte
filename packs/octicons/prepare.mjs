@@ -7,7 +7,7 @@ import {
   ensureDirectory,
   collectFiles,
   dashCaseToClassCase,
-  modifySvelteSvgComponent,
+  modifySvelteSvgComponentV4,
   renderStub,
   downloadPackage,
   unpackPackage
@@ -87,10 +87,10 @@ export default async function main(options = { verbose: false, progress: false }
     await ensureDirectory({ path: newPath });
 
     const componentContent = await renderStub({
-      stub: 'component',
+      stub: 'component-v4',
       content: optimizedFileContent.data
     });
-    const modifiedComponentContent = modifySvelteSvgComponent({ content: componentContent });
+    const modifiedComponentContent = modifySvelteSvgComponentV4({ content: componentContent });
 
     await fs.writeFile(newPath, modifiedComponentContent);
 

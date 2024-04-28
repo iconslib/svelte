@@ -97,7 +97,13 @@ export async function renderStub({ stub, content }) {
   return renderedContent;
 }
 
-export function modifySvelteSvgComponent({ content }) {
+export function modifySvelteSvgComponentV4({ content }) {
+  return content.replace(/(<svg\s*(.*?)>)/, (match, p1) => {
+    return `${p1.slice(0, -1)} {...$$props}>`;
+  });
+}
+
+export function modifySvelteSvgComponentV5({ content }) {
   return content.replace(/(<svg\s*(.*?)>)/, (match, p1) => {
     return `${p1.slice(0, -1)} {...all}>`;
   });
