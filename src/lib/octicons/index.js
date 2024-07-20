@@ -2,6 +2,8 @@ export { default as Accessibility16 } from './esm/Accessibility16.svelte';
 export { default as Accessibility24 } from './esm/Accessibility24.svelte'; 
 export { default as AccessibilityInset16 } from './esm/AccessibilityInset16.svelte'; 
 export { default as AccessibilityInset24 } from './esm/AccessibilityInset24.svelte'; 
+export { default as AiModel16 } from './esm/AiModel16.svelte'; 
+export { default as AiModel24 } from './esm/AiModel24.svelte'; 
 export { default as Alert16 } from './esm/Alert16.svelte'; 
 export { default as Alert24 } from './esm/Alert24.svelte'; 
 export { default as AlertFill12 } from './esm/AlertFill12.svelte'; 
