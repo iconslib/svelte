@@ -823,6 +823,7 @@ export { default as LogoWechat } from './esm/LogoWechat.svelte';
 export { default as LogoWhatsapp } from './esm/LogoWhatsapp.svelte'; 
 export { default as LogoWindows } from './esm/LogoWindows.svelte'; 
 export { default as LogoWordpress } from './esm/LogoWordpress.svelte'; 
+export { default as LogoX } from './esm/LogoX.svelte'; 
 export { default as LogoXbox } from './esm/LogoXbox.svelte'; 
 export { default as LogoXing } from './esm/LogoXing.svelte'; 
 export { default as LogoYahoo } from './esm/LogoYahoo.svelte'; 
