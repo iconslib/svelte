@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true" {...$$props}><circle cx="368" cy="256" r="128" stroke-linejoin="round" stroke-width="32px" style="fill:none!important;"/><rect width="480" height="256" x="16" y="128" rx="128" ry="128" stroke-linejoin="round" stroke-width="32px" style="fill:none!important;"/></svg>

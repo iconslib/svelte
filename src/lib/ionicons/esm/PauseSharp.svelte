@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true" {...$$props}><path d="M224 432h-80V80h80ZM368 432h-80V80h80Z"/></svg>

@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" aria-hidden="true" {...$$props}><path fill-rule="evenodd" d="M1 1a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm6.5 9.625a3.125 3.125 0 1 0 0-6.25 3.125 3.125 0 0 0 0 6.25" clip-rule="evenodd"/></svg>

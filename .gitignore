@@ -2,8 +2,6 @@
 node_modules
 /build
 /dist
-/src/lib/*
-!/src/lib/index.ts
 /packs/*/source
 !/packs/*/prepare.mjs
 /.svelte-kit

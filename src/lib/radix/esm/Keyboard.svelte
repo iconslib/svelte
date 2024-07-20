@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" aria-hidden="true" {...$$props}><rect width="14" height="8" x=".5" y="3.5" stroke="currentColor" rx="1"/><path d="M2 5h1v1H2zm2 0h1v1H4zm2 0h1v1H6zm2 0h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm-1 2h1v1h-1zm1 2h1v1h-1zM9 7h1v1H9zM7 7h1v1H7zM5 7h1v1H5zM3 7h1v1H3zM2 9h1v1H2zm2 0h7v1H4z"/></svg>
